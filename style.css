@@ -2,7 +2,7 @@ body{
   background-color: #F4E9E9;
 }
 
-body, h1 {
+h1, p {
   font-family: "Value Serif";
   font-size: 60px;
   color: 000000;
