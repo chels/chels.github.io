@@ -13,10 +13,13 @@ h1, p {
   color: 000000;
 }
 
-p {
-  margin-bottom: 0px;
+#tings {
+  margin-left: 600px;
+  margin-top: 700px;
+
 }
 
-#name {
-max-width: 100px;
+#tings p {
+margin-bottom: -60px;
+
 }
