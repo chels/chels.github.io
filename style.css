@@ -1,6 +1,6 @@
 @font-face {
-    font-family: "value-serif-bold";
-    src: url(value-serif-bold.otf);
+    font-family: value-serif-bold;
+    src: url('value-serif-bold.otf');
 }  
 
 body {
