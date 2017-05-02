@@ -17,6 +17,6 @@ p {
   margin-bottom: 0px;
 }
 
-#tings {
-  margin-left: 700px;
-  margin-top: 800px;
+#name {
+max-width: 100px;
+}
