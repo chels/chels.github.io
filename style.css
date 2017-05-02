@@ -21,5 +21,16 @@ h1, p {
 
 #tings p {
 margin-bottom: -60px;
+}
 
+
+#circle {
+  margin-top: -300px;
+  margin-left: 300px;
+	width: 390px;
+	height: 390px;
+	background: #0D23F3;
+	-moz-border-radius: 80px;
+	-webkit-border-radius: 80px;
+	border-radius: 1100px;
 }
