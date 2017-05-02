@@ -1,4 +1,9 @@
-  body {
+@font-face {
+    font-family: "Value Serif";
+    src: url(value-serif-bold.otf);
+}  
+
+body {
   background-color: #F4E9E9;
 }
 
