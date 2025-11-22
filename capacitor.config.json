@@ -1,0 +1,8 @@
+{
+  "appId": "com.moodwave.app",
+  "appName": "Moodwave",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "always"
+  }
+}
