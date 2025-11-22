@@ -1,24 +1,587 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodwave - Track Your Vibes</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <h1>
-      chelsea lasalle is a designer
-      based in brooklyn,
-      new york.
-      <p>you can see some of her work <a href="http://www.dribbble.com/chels">here</a>.</p>
-  </div>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-view="feed">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Feed</span>
+            </button>
+            <button class="nav-item" data-view="checkin">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span>Check In</span>
+            </button>
+            <button class="nav-item" data-view="friends">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Friends</span>
+            </button>
+            <button class="nav-item" data-view="profile">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+            </button>
+        </nav>
 
+        <!-- Feed View -->
+        <div id="feed-view" class="view active">
+            <header class="view-header">
+                <h1>Moodwave</h1>
+                <p class="tagline">See how everyone's feeling</p>
+            </header>
+            <div id="feed-container" class="feed-container">
+                <!-- Feed items will be inserted here -->
+            </div>
+        </div>
 
-<div id="circle">
-</div>
+        <!-- Check-in View -->
+        <div id="checkin-view" class="view">
+            <header class="view-header">
+                <h1>How are you feeling?</h1>
+                <p class="tagline">Share your vibe with the world</p>
+            </header>
+            <div class="checkin-container">
+                <div class="mood-selector">
+                    <button class="mood-btn" data-mood="amazing" data-emoji="🤩">
+                        <span class="mood-emoji">🤩</span>
+                        <span class="mood-label">Amazing</span>
+                    </button>
+                    <button class="mood-btn" data-mood="happy" data-emoji="😊">
+                        <span class="mood-emoji">😊</span>
+                        <span class="mood-label">Happy</span>
+                    </button>
+                    <button class="mood-btn" data-mood="calm" data-emoji="😌">
+                        <span class="mood-emoji">😌</span>
+                        <span class="mood-label">Calm</span>
+                    </button>
+                    <button class="mood-btn" data-mood="tired" data-emoji="😴">
+                        <span class="mood-emoji">😴</span>
+                        <span class="mood-label">Tired</span>
+                    </button>
+                    <button class="mood-btn" data-mood="anxious" data-emoji="😰">
+                        <span class="mood-emoji">😰</span>
+                        <span class="mood-label">Anxious</span>
+                    </button>
+                    <button class="mood-btn" data-mood="sad" data-emoji="😢">
+                        <span class="mood-emoji">😢</span>
+                        <span class="mood-label">Sad</span>
+                    </button>
+                    <button class="mood-btn" data-mood="angry" data-emoji="😤">
+                        <span class="mood-emoji">😤</span>
+                        <span class="mood-label">Angry</span>
+                    </button>
+                    <button class="mood-btn" data-mood="excited" data-emoji="🎉">
+                        <span class="mood-emoji">🎉</span>
+                        <span class="mood-label">Excited</span>
+                    </button>
+                </div>
 
+                <div class="song-section">
+                    <h3>Add a song to your mood</h3>
+                    <div class="song-input-container">
+                        <input type="text" id="song-input" placeholder="Search for a song...">
+                        <div id="song-suggestions" class="song-suggestions"></div>
+                    </div>
+                    <div id="selected-song" class="selected-song"></div>
+                </div>
 
+                <div class="note-section">
+                    <textarea id="mood-note" placeholder="Add a note about how you're feeling..."></textarea>
+                </div>
 
+                <button id="post-checkin" class="post-btn" disabled>Post Check-in</button>
+            </div>
+        </div>
+
+        <!-- Friends View -->
+        <div id="friends-view" class="view">
+            <header class="view-header">
+                <h1>Friends</h1>
+                <p class="tagline">Find and follow friends</p>
+            </header>
+            <div class="friends-container">
+                <div class="search-container">
+                    <input type="text" id="friend-search" placeholder="Search for friends...">
+                </div>
+                <div class="friends-section">
+                    <h3>Following</h3>
+                    <div id="following-list" class="friends-list">
+                        <!-- Following list will be inserted here -->
+                    </div>
+                </div>
+                <div class="friends-section">
+                    <h3>Suggested Friends</h3>
+                    <div id="suggested-list" class="friends-list">
+                        <!-- Suggested friends will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile View -->
+        <div id="profile-view" class="view">
+            <header class="view-header">
+                <h1>Your Profile</h1>
+            </header>
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-photo-container">
+                        <img id="profile-photo" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default" alt="Profile Photo">
+                        <button id="change-photo-btn" class="change-photo-btn">Change Photo</button>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number" id="checkin-count">0</span>
+                            <span class="stat-label">Check-ins</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="following-count">0</span>
+                            <span class="stat-label">Following</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="followers-count">0</span>
+                            <span class="stat-label">Followers</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <input type="text" id="profile-name" placeholder="Your Name" class="profile-input">
+                    <input type="text" id="profile-username" placeholder="@username" class="profile-input">
+                    <textarea id="profile-bio" placeholder="Write a bio about yourself..." class="profile-input"></textarea>
+                    <button id="save-profile" class="save-btn">Save Profile</button>
+                </div>
+                <div class="profile-history">
+                    <h3>Your Mood History</h3>
+                    <div id="mood-history" class="mood-history">
+                        <!-- Mood history will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for the app
+        const sampleUsers = [
+            { id: 1, name: 'Alex Rivera', username: '@alexr', photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=alex', bio: 'Music lover & coffee addict' },
+            { id: 2, name: 'Jordan Chen', username: '@jordanc', photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=jordan', bio: 'Living my best life' },
+            { id: 3, name: 'Sam Wilson', username: '@samw', photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sam', bio: 'Adventure seeker' },
+            { id: 4, name: 'Taylor Kim', username: '@taylork', photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=taylor', bio: 'Dreamer & creator' },
+            { id: 5, name: 'Morgan Lee', username: '@morganl', photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=morgan', bio: 'Taking it one day at a time' },
+            { id: 6, name: 'Casey Brown', username: '@caseyb', photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=casey', bio: 'Positivity advocate' },
+        ];
+
+        const sampleSongs = [
+            { title: 'Good Days', artist: 'SZA' },
+            { title: 'Blinding Lights', artist: 'The Weeknd' },
+            { title: 'Levitating', artist: 'Dua Lipa' },
+            { title: 'drivers license', artist: 'Olivia Rodrigo' },
+            { title: 'Peaches', artist: 'Justin Bieber' },
+            { title: 'Stay', artist: 'The Kid LAROI & Justin Bieber' },
+            { title: 'Montero', artist: 'Lil Nas X' },
+            { title: 'Kiss Me More', artist: 'Doja Cat' },
+            { title: 'Heat Waves', artist: 'Glass Animals' },
+            { title: 'Save Your Tears', artist: 'The Weeknd' },
+            { title: 'Butter', artist: 'BTS' },
+            { title: 'Bad Habits', artist: 'Ed Sheeran' },
+            { title: 'Industry Baby', artist: 'Lil Nas X' },
+            { title: 'Easy On Me', artist: 'Adele' },
+            { title: 'Happier Than Ever', artist: 'Billie Eilish' },
+        ];
+
+        const moods = {
+            amazing: { emoji: '🤩', color: '#FFD700' },
+            happy: { emoji: '😊', color: '#98D8AA' },
+            calm: { emoji: '😌', color: '#B4E4FF' },
+            tired: { emoji: '😴', color: '#C8B6E2' },
+            anxious: { emoji: '😰', color: '#FFB84C' },
+            sad: { emoji: '😢', color: '#89CFF0' },
+            angry: { emoji: '😤', color: '#FF6B6B' },
+            excited: { emoji: '🎉', color: '#F8B500' }
+        };
+
+        // Initialize app state
+        let appState = {
+            currentUser: null,
+            following: [],
+            feed: [],
+            selectedMood: null,
+            selectedSong: null
+        };
+
+        // Load state from localStorage
+        function loadState() {
+            const saved = localStorage.getItem('moodwaveState');
+            if (saved) {
+                appState = JSON.parse(saved);
+            } else {
+                // Initialize with default data
+                appState.currentUser = {
+                    id: 0,
+                    name: '',
+                    username: '',
+                    photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=default',
+                    bio: ''
+                };
+                appState.following = [1, 2, 3];
+                appState.feed = generateSampleFeed();
+            }
+        }
+
+        // Save state to localStorage
+        function saveState() {
+            localStorage.setItem('moodwaveState', JSON.stringify(appState));
+        }
+
+        // Generate sample feed data
+        function generateSampleFeed() {
+            const feed = [];
+            const now = Date.now();
+            const moodKeys = Object.keys(moods);
+
+            sampleUsers.forEach((user, index) => {
+                const numCheckins = Math.floor(Math.random() * 3) + 1;
+                for (let i = 0; i < numCheckins; i++) {
+                    const mood = moodKeys[Math.floor(Math.random() * moodKeys.length)];
+                    const hasSong = Math.random() > 0.5;
+                    feed.push({
+                        id: `${user.id}-${i}`,
+                        userId: user.id,
+                        mood: mood,
+                        song: hasSong ? sampleSongs[Math.floor(Math.random() * sampleSongs.length)] : null,
+                        note: getRandomNote(mood),
+                        timestamp: now - Math.random() * 86400000 * 2
+                    });
+                }
+            });
+
+            return feed.sort((a, b) => b.timestamp - a.timestamp);
+        }
+
+        function getRandomNote(mood) {
+            const notes = {
+                amazing: ['Best day ever!', 'Everything is going perfectly!', 'On top of the world!'],
+                happy: ['Having a great day', 'Feeling grateful', 'Good vibes only'],
+                calm: ['Taking it easy', 'Peaceful morning', 'Relaxing afternoon'],
+                tired: ['Need more coffee', 'Long day ahead', 'Ready for bed'],
+                anxious: ['Stressed about work', 'Big meeting today', 'Trying to stay calm'],
+                sad: ['Missing home', 'Tough day', 'Need some comfort food'],
+                angry: ['Traffic was awful', 'Frustrating day', 'Need to vent'],
+                excited: ['Can\'t wait for tonight!', 'Great news!', 'So pumped!']
+            };
+            const options = notes[mood] || [''];
+            return Math.random() > 0.3 ? options[Math.floor(Math.random() * options.length)] : '';
+        }
+
+        // Navigation
+        function setupNavigation() {
+            document.querySelectorAll('.nav-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const view = btn.dataset.view;
+                    showView(view);
+
+                    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+        }
+
+        function showView(viewName) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(`${viewName}-view`).classList.add('active');
+
+            if (viewName === 'feed') renderFeed();
+            if (viewName === 'friends') renderFriends();
+            if (viewName === 'profile') renderProfile();
+        }
+
+        // Feed rendering
+        function renderFeed() {
+            const container = document.getElementById('feed-container');
+            container.innerHTML = '';
+
+            appState.feed.forEach(item => {
+                const user = sampleUsers.find(u => u.id === item.userId) || appState.currentUser;
+                if (!user) return;
+
+                const card = document.createElement('div');
+                card.className = 'feed-card';
+                card.style.borderLeftColor = moods[item.mood].color;
+
+                card.innerHTML = `
+                    <div class="feed-card-header">
+                        <img src="${user.photo}" alt="${user.name}" class="feed-avatar">
+                        <div class="feed-user-info">
+                            <span class="feed-name">${user.name || 'Anonymous'}</span>
+                            <span class="feed-time">${getTimeAgo(item.timestamp)}</span>
+                        </div>
+                        <span class="feed-mood-emoji">${moods[item.mood].emoji}</span>
+                    </div>
+                    <div class="feed-card-body">
+                        <span class="mood-tag" style="background: ${moods[item.mood].color}">${item.mood}</span>
+                        ${item.note ? `<p class="feed-note">${item.note}</p>` : ''}
+                        ${item.song ? `
+                            <div class="feed-song">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 18V5l12-2v13"></path>
+                                    <circle cx="6" cy="18" r="3"></circle>
+                                    <circle cx="18" cy="16" r="3"></circle>
+                                </svg>
+                                <span>${item.song.title} - ${item.song.artist}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function getTimeAgo(timestamp) {
+            const seconds = Math.floor((Date.now() - timestamp) / 1000);
+            if (seconds < 60) return 'just now';
+            if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+            if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+            return `${Math.floor(seconds / 86400)}d ago`;
+        }
+
+        // Check-in functionality
+        function setupCheckin() {
+            document.querySelectorAll('.mood-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    appState.selectedMood = btn.dataset.mood;
+                    updatePostButton();
+                });
+            });
+
+            const songInput = document.getElementById('song-input');
+            const suggestions = document.getElementById('song-suggestions');
+
+            songInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                if (query.length < 2) {
+                    suggestions.style.display = 'none';
+                    return;
+                }
+
+                const matches = sampleSongs.filter(s =>
+                    s.title.toLowerCase().includes(query) ||
+                    s.artist.toLowerCase().includes(query)
+                ).slice(0, 5);
+
+                if (matches.length > 0) {
+                    suggestions.innerHTML = matches.map(s => `
+                        <div class="song-suggestion" data-title="${s.title}" data-artist="${s.artist}">
+                            <span class="song-title">${s.title}</span>
+                            <span class="song-artist">${s.artist}</span>
+                        </div>
+                    `).join('');
+                    suggestions.style.display = 'block';
+
+                    document.querySelectorAll('.song-suggestion').forEach(el => {
+                        el.addEventListener('click', () => {
+                            appState.selectedSong = {
+                                title: el.dataset.title,
+                                artist: el.dataset.artist
+                            };
+                            document.getElementById('selected-song').innerHTML = `
+                                <div class="selected-song-display">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 18V5l12-2v13"></path>
+                                        <circle cx="6" cy="18" r="3"></circle>
+                                        <circle cx="18" cy="16" r="3"></circle>
+                                    </svg>
+                                    <span>${el.dataset.title} - ${el.dataset.artist}</span>
+                                    <button class="remove-song">×</button>
+                                </div>
+                            `;
+                            document.querySelector('.remove-song').addEventListener('click', () => {
+                                appState.selectedSong = null;
+                                document.getElementById('selected-song').innerHTML = '';
+                                songInput.value = '';
+                            });
+                            songInput.value = '';
+                            suggestions.style.display = 'none';
+                        });
+                    });
+                } else {
+                    suggestions.style.display = 'none';
+                }
+            });
+
+            document.getElementById('post-checkin').addEventListener('click', postCheckin);
+        }
+
+        function updatePostButton() {
+            document.getElementById('post-checkin').disabled = !appState.selectedMood;
+        }
+
+        function postCheckin() {
+            if (!appState.selectedMood) return;
+
+            const checkin = {
+                id: `user-${Date.now()}`,
+                userId: 0,
+                mood: appState.selectedMood,
+                song: appState.selectedSong,
+                note: document.getElementById('mood-note').value,
+                timestamp: Date.now()
+            };
+
+            appState.feed.unshift(checkin);
+
+            // Reset form
+            appState.selectedMood = null;
+            appState.selectedSong = null;
+            document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+            document.getElementById('mood-note').value = '';
+            document.getElementById('selected-song').innerHTML = '';
+            updatePostButton();
+
+            saveState();
+            showView('feed');
+            document.querySelector('[data-view="feed"]').click();
+        }
+
+        // Friends functionality
+        function renderFriends() {
+            const followingList = document.getElementById('following-list');
+            const suggestedList = document.getElementById('suggested-list');
+
+            // Render following
+            const following = sampleUsers.filter(u => appState.following.includes(u.id));
+            followingList.innerHTML = following.map(user => `
+                <div class="friend-card">
+                    <img src="${user.photo}" alt="${user.name}" class="friend-avatar">
+                    <div class="friend-info">
+                        <span class="friend-name">${user.name}</span>
+                        <span class="friend-username">${user.username}</span>
+                    </div>
+                    <button class="unfollow-btn" data-id="${user.id}">Following</button>
+                </div>
+            `).join('');
+
+            // Render suggested
+            const suggested = sampleUsers.filter(u => !appState.following.includes(u.id));
+            suggestedList.innerHTML = suggested.map(user => `
+                <div class="friend-card">
+                    <img src="${user.photo}" alt="${user.name}" class="friend-avatar">
+                    <div class="friend-info">
+                        <span class="friend-name">${user.name}</span>
+                        <span class="friend-username">${user.username}</span>
+                    </div>
+                    <button class="follow-btn" data-id="${user.id}">Follow</button>
+                </div>
+            `).join('');
+
+            // Add event listeners
+            document.querySelectorAll('.follow-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    appState.following.push(parseInt(btn.dataset.id));
+                    saveState();
+                    renderFriends();
+                });
+            });
+
+            document.querySelectorAll('.unfollow-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    appState.following = appState.following.filter(id => id !== parseInt(btn.dataset.id));
+                    saveState();
+                    renderFriends();
+                });
+            });
+
+            // Search functionality
+            document.getElementById('friend-search').addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                document.querySelectorAll('.friend-card').forEach(card => {
+                    const name = card.querySelector('.friend-name').textContent.toLowerCase();
+                    const username = card.querySelector('.friend-username').textContent.toLowerCase();
+                    card.style.display = name.includes(query) || username.includes(query) ? 'flex' : 'none';
+                });
+            });
+        }
+
+        // Profile functionality
+        function renderProfile() {
+            const user = appState.currentUser;
+            document.getElementById('profile-photo').src = user.photo;
+            document.getElementById('profile-name').value = user.name;
+            document.getElementById('profile-username').value = user.username;
+            document.getElementById('profile-bio').value = user.bio;
+
+            // Stats
+            const userCheckins = appState.feed.filter(f => f.userId === 0);
+            document.getElementById('checkin-count').textContent = userCheckins.length;
+            document.getElementById('following-count').textContent = appState.following.length;
+            document.getElementById('followers-count').textContent = Math.floor(Math.random() * 50) + 10;
+
+            // Mood history
+            const history = document.getElementById('mood-history');
+            history.innerHTML = userCheckins.slice(0, 10).map(item => `
+                <div class="history-item">
+                    <span class="history-emoji">${moods[item.mood].emoji}</span>
+                    <div class="history-info">
+                        <span class="history-mood">${item.mood}</span>
+                        <span class="history-time">${getTimeAgo(item.timestamp)}</span>
+                    </div>
+                    ${item.song ? `<span class="history-song">${item.song.title}</span>` : ''}
+                </div>
+            `).join('') || '<p class="no-history">No check-ins yet. Start tracking your mood!</p>';
+        }
+
+        function setupProfile() {
+            document.getElementById('save-profile').addEventListener('click', () => {
+                appState.currentUser.name = document.getElementById('profile-name').value;
+                appState.currentUser.username = document.getElementById('profile-username').value;
+                appState.currentUser.bio = document.getElementById('profile-bio').value;
+                saveState();
+                alert('Profile saved!');
+            });
+
+            document.getElementById('change-photo-btn').addEventListener('click', () => {
+                const seed = prompt('Enter a name for your avatar:');
+                if (seed) {
+                    appState.currentUser.photo = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
+                    document.getElementById('profile-photo').src = appState.currentUser.photo;
+                    saveState();
+                }
+            });
+        }
+
+        // Initialize app
+        function init() {
+            loadState();
+            setupNavigation();
+            setupCheckin();
+            setupProfile();
+            renderFeed();
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
-
 </html>
