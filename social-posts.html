@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dauphine - Social Posts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-light: #F5E6E0;
+            --pink-medium: #E8D4CC;
+            --terracotta: #C4745A;
+            --terracotta-dark: #A85A3E;
+            --cream: #FAF7F5;
+            --text-dark: #3D2E2A;
+            --text-light: #6B5750;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--terracotta-dark);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .post-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-post {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Style variations */
+        .style-1 {
+            background: var(--pink-light);
+        }
+
+        .style-2 {
+            background: var(--terracotta);
+        }
+
+        .style-3 {
+            background: var(--cream);
+            border: 2px solid var(--terracotta);
+        }
+
+        .style-4 {
+            background: linear-gradient(135deg, var(--pink-light) 0%, var(--pink-medium) 100%);
+        }
+
+        .style-5 {
+            background: var(--terracotta-dark);
+        }
+
+        .style-6 {
+            background: var(--pink-medium);
+        }
+
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        .style-1 .quote-text,
+        .style-3 .quote-text,
+        .style-4 .quote-text,
+        .style-6 .quote-text {
+            color: var(--text-dark);
+        }
+
+        .style-2 .quote-text,
+        .style-5 .quote-text {
+            color: var(--cream);
+        }
+
+        .quote-large {
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+
+        .quote-medium {
+            font-size: 1.5rem;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .quote-small {
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .attribution {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+        }
+
+        .style-1 .attribution,
+        .style-3 .attribution,
+        .style-4 .attribution,
+        .style-6 .attribution {
+            color: var(--terracotta);
+        }
+
+        .style-2 .attribution,
+        .style-5 .attribution {
+            color: var(--pink-light);
+        }
+
+        /* Decorative elements */
+        .decorative-line {
+            width: 40px;
+            height: 1px;
+            margin: 20px auto;
+        }
+
+        .style-1 .decorative-line,
+        .style-3 .decorative-line,
+        .style-4 .decorative-line,
+        .style-6 .decorative-line {
+            background: var(--terracotta);
+        }
+
+        .style-2 .decorative-line,
+        .style-5 .decorative-line {
+            background: var(--pink-light);
+        }
+
+        .corner-accent {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 1px solid;
+        }
+
+        .corner-accent.top-left {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-accent.bottom-right {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .style-1 .corner-accent,
+        .style-3 .corner-accent,
+        .style-4 .corner-accent,
+        .style-6 .corner-accent {
+            border-color: var(--terracotta);
+        }
+
+        .style-2 .corner-accent,
+        .style-5 .corner-accent {
+            border-color: var(--pink-light);
+        }
+
+        .post-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            color: var(--text-light);
+            margin-top: 15px;
+            letter-spacing: 0.1em;
+        }
+
+        /* Download button styling */
+        .download-btn {
+            margin-top: 15px;
+            padding: 8px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            background: transparent;
+            border: 1px solid var(--terracotta);
+            color: var(--terracotta);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: var(--terracotta);
+            color: var(--cream);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+                letter-spacing: 0.2em;
+            }
+
+            .posts-grid {
+                gap: 30px;
+            }
+
+            .social-post {
+                padding: 35px;
+            }
+
+            .quote-large {
+                font-size: 1.5rem;
+            }
+
+            .quote-medium {
+                font-size: 1.3rem;
+            }
+
+            .quote-small {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>The Dauphine</h1>
+        <p>Beauty & Lifestyle</p>
+    </header>
+
+    <div class="posts-grid">
+        <!-- Post 1 -->
+        <div class="post-wrapper">
+            <div class="social-post style-1">
+                <div class="corner-accent top-left"></div>
+                <div class="corner-accent bottom-right"></div>
+                <p class="quote-text quote-large">It's perfect. It's buildable. It's everything.</p>
+                <div class="decorative-line"></div>
+                <span class="attribution">The Dauphine</span>
+            </div>
+            <span class="post-number">01</span>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="post-wrapper">
+            <div class="social-post style-2">
+                <p class="quote-text quote-medium">The best mascara that I have ever tried.</p>
+                <div class="decorative-line"></div>
+                <span class="attribution">The Dauphine</span>
+            </div>
+            <span class="post-number">02</span>
+        </div>
+
+        <!-- Post 3 -->
+        <div class="post-wrapper">
+            <div class="social-post style-3">
+                <div class="corner-accent top-left"></div>
+                <div class="corner-accent bottom-right"></div>
+                <p class="quote-text quote-small">A complete godsend for dry, color-treated curls.</p>
+                <div class="decorative-line"></div>
+                <span class="attribution">The Dauphine</span>
+            </div>
+            <span class="post-number">03</span>
+        </div>
+
+        <!-- Post 4 -->
+        <div class="post-wrapper">
+            <div class="social-post style-4">
+                <p class="quote-text quote-large">You look like you're out of Harry Potter.</p>
+                <div class="decorative-line"></div>
+                <span class="attribution">The Dauphine</span>
+            </div>
+            <span class="post-number">04</span>
+        </div>
+
+        <!-- Post 5 -->
+        <div class="post-wrapper">
+            <div class="social-post style-5">
+                <div class="corner-accent top-left"></div>
+                <div class="corner-accent bottom-right"></div>
+                <p class="quote-text quote-medium">A hell of a lot darker in the tube than it does on the lips.</p>
+                <div class="decorative-line"></div>
+                <span class="attribution">The Dauphine</span>
+            </div>
+            <span class="post-number">05</span>
+        </div>
+
+        <!-- Post 6 -->
+        <div class="post-wrapper">
+            <div class="social-post style-6">
+                <p class="quote-text quote-small">The curliest of ringlet curls—naturally dry, prone to breakage.</p>
+                <div class="decorative-line"></div>
+                <span class="attribution">The Dauphine</span>
+            </div>
+            <span class="post-number">06</span>
+        </div>
+
+        <!-- Post 7 -->
+        <div class="post-wrapper">
+            <div class="social-post style-1">
+                <p class="quote-text quote-large">My holy grail mascara.</p>
+                <div class="decorative-line"></div>
+                <span class="attribution">The Dauphine</span>
+            </div>
+            <span class="post-number">07</span>
+        </div>
+
+        <!-- Post 8 -->
+        <div class="post-wrapper">
+            <div class="social-post style-3">
+                <div class="corner-accent top-left"></div>
+                <div class="corner-accent bottom-right"></div>
+                <p class="quote-text quote-medium">Luminous silk that moves with you.</p>
+                <div class="decorative-line"></div>
+                <span class="attribution">The Dauphine</span>
+            </div>
+            <span class="post-number">08</span>
+        </div>
+
+        <!-- Post 9 -->
+        <div class="post-wrapper">
+            <div class="social-post style-5">
+                <p class="quote-text quote-small">Perfect for fall—dark side never looked so good.</p>
+                <div class="decorative-line"></div>
+                <span class="attribution">The Dauphine</span>
+            </div>
+            <span class="post-number">09</span>
+        </div>
+    </div>
+
+    <script>
+        // Function to download individual posts as images
+        // Note: For actual 1080x1080 export, you would use html2canvas library
+        document.querySelectorAll('.social-post').forEach((post, index) => {
+            post.style.cursor = 'pointer';
+            post.title = 'Click to select for export';
+        });
+    </script>
+</body>
+</html>
