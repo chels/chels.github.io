@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Higher Maintenance - A Podcast by Sara and Chelsea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg,
+                rgba(160, 190, 180, 0.3) 0%,
+                rgba(220, 180, 190, 0.4) 35%,
+                rgba(245, 200, 210, 0.5) 65%,
+                rgba(180, 200, 210, 0.3) 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 500;
+            font-style: italic;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero h1 .higher {
+            font-style: normal;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero .subtitle {
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            margin-bottom: 30px;
+            letter-spacing: 0.05em;
+        }
+
+        .hero .description {
+            font-size: 0.95rem;
+            color: #6a6a6a;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Gradient variations */
+        .gradient-pink-teal {
+            background: linear-gradient(135deg,
+                rgba(245, 200, 210, 0.6) 0%,
+                rgba(180, 220, 210, 0.6) 100%);
+        }
+
+        .gradient-sage {
+            background: linear-gradient(135deg,
+                rgba(180, 200, 180, 0.7) 0%,
+                rgba(200, 210, 200, 0.7) 100%);
+        }
+
+        .gradient-pink-rose {
+            background: linear-gradient(135deg,
+                rgba(255, 182, 193, 0.5) 0%,
+                rgba(255, 218, 224, 0.5) 100%);
+        }
+
+        .gradient-teal-blue {
+            background: linear-gradient(135deg,
+                rgba(152, 193, 186, 0.6) 0%,
+                rgba(173, 216, 230, 0.6) 100%);
+        }
+
+        .gradient-warm {
+            background: linear-gradient(135deg,
+                rgba(255, 200, 180, 0.5) 0%,
+                rgba(255, 220, 210, 0.5) 100%);
+        }
+
+        .gradient-cool {
+            background: linear-gradient(135deg,
+                rgba(180, 190, 210, 0.6) 0%,
+                rgba(200, 210, 220, 0.6) 100%);
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            color: #1a1a1a;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2a2a2a;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            font-size: 0.75rem;
+            color: #8a8a8a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .featured-card {
+            grid-column: span 2;
+        }
+
+        .featured-card .card-image {
+            aspect-ratio: 2/1;
+        }
+
+        .featured-card .quote-text {
+            font-size: 2.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .featured-card {
+                grid-column: span 1;
+            }
+
+            .featured-card .card-image {
+                aspect-ratio: 1;
+            }
+
+            .quote-text {
+                font-size: 1.3rem;
+            }
+
+            .featured-card .quote-text {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1><span class="higher">HIGHER</span> Maintenance</h1>
+        <p class="subtitle">A podcast by Sara and Chelsea</p>
+        <p class="description">
+            Real conversations about sobriety, friendships, lifestyle, love, loss, boundaries,
+            and relapses within friends that we went to rehab with. Unfiltered, honest, and higher.
+        </p>
+    </div>
+
+    <div class="content-grid">
+        <!-- Featured Card -->
+        <div class="content-card featured-card">
+            <div class="card-image gradient-pink-teal">
+                <p class="quote-text">You're not healing wrong, you're just healing honestly</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">This is exactly what healing from toxic relationships looks like when you stop pretending</h3>
+                <p class="card-meta">On being present</p>
+            </div>
+        </div>
+
+        <!-- Regular Cards -->
+        <div class="content-card">
+            <div class="card-image gradient-sage">
+                <p class="quote-text">Boundaries aren't walls, they're doors you get to choose who walks through</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">The art of setting boundaries without burning bridges</h3>
+                <p class="card-meta">On boundaries</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-pink-rose">
+                <p class="quote-text">Sobriety gave me back the life I was trying to escape</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">What they don't tell you about getting sober with your friends</h3>
+                <p class="card-meta">On sobriety</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-teal-blue">
+                <p class="quote-text">The hardest part of independence is realizing you were capable all along</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Finding yourself after losing someone you thought completed you</h3>
+                <p class="card-meta">On independence</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-warm">
+                <p class="quote-text">Your relapse doesn't erase your progress, it's part of your story</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">What happens when your rehab friends relapse and you don't</h3>
+                <p class="card-meta">On relapses</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-cool">
+                <p class="quote-text">Heartbreak taught me that being alone and being lonely are different things</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">The difference between healing and just getting over it</h3>
+                <p class="card-meta">On heartbreak</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-pink-teal">
+                <p class="quote-text">Being present means showing up for the messy middle, not just the happy ending</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Why being present is harder than it sounds when you've spent years checking out</h3>
+                <p class="card-meta">On mindfulness</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-sage">
+                <p class="quote-text">Toxic love taught me what real love isn't</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Recognizing the patterns you inherited from toxic relationships</h3>
+                <p class="card-meta">On toxic relationships</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-pink-rose">
+                <p class="quote-text">Some friendships are chapters, not the whole book</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">When friendships formed in crisis don't survive recovery</h3>
+                <p class="card-meta">On friendships</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-warm">
+                <p class="quote-text">You can't hate yourself into a version of yourself you love</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Learning to love yourself after years of self-destruction</h3>
+                <p class="card-meta">On self-love</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-teal-blue">
+                <p class="quote-text">Independence isn't not needing people, it's knowing you'll be okay either way</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">The freedom that comes from being your own person</h3>
+                <p class="card-meta">On independence</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-cool">
+                <p class="quote-text">Leaving wasn't giving up, it was choosing yourself</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">The moment you realize staying hurts more than leaving</h3>
+                <p class="card-meta">On toxic relationships</p>
+            </div>
+        </div>
+
+        <!-- Another Featured Card -->
+        <div class="content-card featured-card">
+            <div class="card-image gradient-pink-rose">
+                <p class="quote-text">Recovery isn't linear, and neither is life</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">The beautiful mess of getting better while everything else stays complicated</h3>
+                <p class="card-meta">On recovery</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-sage">
+                <p class="quote-text">The present moment is the only one where healing happens</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Stop living in the past you can't change or the future you can't control</h3>
+                <p class="card-meta">On being present</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-warm">
+                <p class="quote-text">Your standards aren't too high, you just stopped settling</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">What knowing your worth actually looks like in practice</h3>
+                <p class="card-meta">On boundaries</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-image gradient-pink-teal">
+                <p class="quote-text">Sometimes the most loving thing you can do is let go</p>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Navigating friendships when your paths diverge</h3>
+                <p class="card-meta">On loss</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
